@@ -17,6 +17,7 @@ module.exports = {
 	},
 	plugins: [
 		// 3. Append the Skeleton plugin to the end of this list
+		require('@tailwindcss/typography'),
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()
 	]

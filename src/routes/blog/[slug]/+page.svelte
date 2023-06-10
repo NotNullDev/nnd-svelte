@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-
-	$: slug = $page.url.pathname.replace('/blog', '');
 	export let data;
 </script>
 

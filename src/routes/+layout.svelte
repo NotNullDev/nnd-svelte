@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { appConfig } from '$lib/config';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
 	import { clsx } from 'clsx';
 	import '../app.css';
 </script>
 
-<div class="">
+<div class="h-full flex flex-col">
 	<header class="p-4 container mx-auto flex justify-between">
 		<div>
 			<a
@@ -39,6 +40,13 @@
 							$page.url.pathname === '/about'
 					})}
 					href="/about">About</a
+				>
+				<a
+					class={clsx('btn', {
+						'underline underline-offset-4 text-primary-400-500-token':
+							$page.url.pathname === '/contact'
+					})}
+					href="/contact">Contact</a
 				>
 			</nav>
 			<div class="flex gap-1 items-center justify-center h-full p-1">
@@ -87,5 +95,10 @@
 			</div>
 		</div>
 	</header>
-	<slot />
+	<div class="flex-1 flex flex-col">
+		<slot />
+	</div>
+	<footer class="p-8 text-center mt-5">
+		{appConfig.pageTitle} &copy; {new Date().getFullYear()}
+	</footer>
 </div>
