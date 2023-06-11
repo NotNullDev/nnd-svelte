@@ -49,7 +49,7 @@
 <svelte:window on:resize={updateHeaderHeight} bind:scrollY bind:innerHeight />
 <div>
 	<section
-		class={`flex flex-row-reverse items-center h-screen transition-none`}
+		class={clsx(`flex flex-row-reverse items-center h-screen transition-none`, '')}
 		bind:this={firstSection}
 	>
 		<div class="flex-[2] flex items-center flex-col">
@@ -59,7 +59,10 @@
 				</div>
 			{/if}
 			{#if ready}
-				<div class="text-8xl" in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}>
+				<div
+					class="text-8xl text-center"
+					in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
+				>
 					I am NotNullDev
 				</div>
 			{/if}
@@ -108,7 +111,7 @@
 				{/if}
 			</ul>
 		</div>
-		<div class="flex-1 flex items-center justify-center p-8">
+		<div class="flex-1 flex items-center justify-center p-8 max-[1200px]:hidden">
 			{#if ready}
 				<img
 					src="https://cdn.notnulldev.com/hero-image.webp"
@@ -128,17 +131,24 @@
 			{/if}
 		</div>
 	</section>
-	<section class="flex flex-col items-center min-h-[200vh]">
+	<section class="flex flex-col items-center min-h-[100vh]">
 		<div>I aim to be</div>
-		<div class="text-6xl flex gap-3">
-			Jack of all trades master of
-			<div class="flex">
-				<span
+		<div class="text-6xl flex gap-3 flex-wrap items-center justify-center">
+			<div>Jack</div>
+			<div>of</div>
+			<div>all</div>
+			<div>trades</div>
+			<div>master</div>
+			<div>of</div>
+			<div class="flex flex-nowrap">
+				<div
 					style={`
                 display: inline-block;
                 opacity: ${1 - noneScrollPercentage};
-            `}>n</span
+            `}
 				>
+					n
+				</div>
 				<div
 					style={`
                 transform: translateX(${-Math.floor(16 * noneScrollPercentage)}px);
@@ -148,11 +158,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="mt-5 text-slate-400">
+		<!-- <div class="mt-5 text-slate-400">
 			In IT, to be good at something you need to know what are alternative ways of doing things and
 			use knowledge from another topics to choose the best option for your problem.
-		</div>
-		<div class="flex flex-wrap justify-center gap-32 w-full mt-24">
+		</div> -->
+		<div class="flex flex-wrap justify-center gap-32 w-full mt-12">
 			<!-- infra -->
 			<section class="flex flex-col gap-6">
 				<h2 class="text-4xl">Infrastructure</h2>
@@ -166,7 +176,7 @@
 				</div>
 				<div class="flex gap-24 items-center justify-between">
 					<div class="capitalize font-bold text-xl">cloudflare</div>
-					<img class="h-12" src={Cloudflare} alt="cloudflare" />
+					<img class="h-6" src={Cloudflare} alt="cloudflare" />
 				</div>
 				<div class="flex gap-24 items-center justify-between">
 					<div class="capitalize font-bold text-xl">google cloud</div>
@@ -189,7 +199,7 @@
 				</div>
 				<div class="flex gap-24 items-center justify-between">
 					<div class="capitalize font-bold text-xl">go</div>
-					<img class="h-12" src={Golang} alt="go" />
+					<img class="h-6" src={Golang} alt="go" />
 				</div>
 				<div class="flex gap-24 items-center justify-between">
 					<div class="capitalize font-bold text-xl">java</div>
@@ -214,4 +224,74 @@
 			</section>
 		</div>
 	</section>
+	<section class="flex flex-col min-h-[120vh]">
+		<h2 class="text-6xl my-24 w-full text-center">Recent Projects</h2>
+		<!-- projects group -->
+		<div class="p-16 flex justify-center gap-10 max-[900px]:flex-col max-[900px]:items-center">
+			<!-- single card -->
+			<div
+				class={clsx(
+					'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
+					'shadow-sm shadow-slate-950 '
+				)}
+			>
+				<div class="rounded-t-xl">
+					<img
+						width="380px"
+						height="200px"
+						src="https://cdn.notnulldev.com/daxer.webp"
+						alt="e-commerce application"
+						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
+					/>
+				</div>
+				<div class="w-full p-6 flex flex-col flex-1">
+					<div class="flex-1">
+						<h2 class="font-bold text-xl">Local business</h2>
+						<div class="my-5 text-sm text-slate-400">Website for local business</div>
+					</div>
+					<div class="w-full flex justify-end group-hover:animate-pulse">
+						<a
+							href="https://daxer.notnulldev.com"
+							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
+						>
+					</div>
+				</div>
+			</div>
+			<!-- single card -->
+			<div
+				class={clsx(
+					'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
+					'shadow-sm shadow-slate-950 '
+				)}
+			>
+				<div class="rounded-t-xl">
+					<img
+						width="380px"
+						height="200px"
+						src="https://cdn.notnulldev.com/e-com.webp"
+						alt="e-commerce application"
+						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
+					/>
+				</div>
+				<div class="w-full p-6 flex flex-col flex-1">
+					<div class="flex-1">
+						<h2 class="font-bold text-xl">E-commerce</h2>
+						<div class="my-5 text-sm text-slate-400">
+							Simple e-commerce site built with Next.js, prisma, trpc, tailwind, nextauth, stripe
+							and daisyui.
+						</div>
+					</div>
+					<div class="w-full flex justify-end group-hover:animate-pulse">
+						<a
+							href="https://e-com.notnulldev.com"
+							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- <section>
+		<h2 class="text-2xl">Recent Posts</h2>
+	</section> -->
 </div>

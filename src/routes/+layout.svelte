@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { appConfig } from '$lib/config';
+	import HamburgerMenu from '$lib/icons/hamburger-menu.svg';
+	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
 	import { clsx } from 'clsx';
@@ -9,7 +11,15 @@
 
 <div class="flex flex-col">
 	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0">
-		<div>
+		<div class="flex items-center gap-2">
+			<button
+				on:click={() => {
+					drawerStore.open();
+				}}
+				class="md:hidden"
+			>
+				<img src={HamburgerMenu} alt="hamburger menu" class="btn btn-sm" />
+			</button>
 			<a
 				href="/"
 				class={clsx(
@@ -20,20 +30,20 @@
 			>
 		</div>
 		<div class="flex gap-4">
-			<nav class="flex gap-1">
+			<nav class={clsx('flex gap-1', 'max-md:hidden')}>
 				<a
 					class={clsx('btn', {
 						'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/'
 					})}
 					href="/">Home</a
 				>
-				<a
+				<!-- <a
 					class={clsx('btn', {
 						'underline underline-offset-4 text-primary-400-500-token':
 							$page.url.pathname === '/blog'
 					})}
 					href="/blog">Blog</a
-				>
+				> -->
 				<a
 					class={clsx('btn', {
 						'underline underline-offset-4 text-primary-400-500-token':
@@ -103,3 +113,29 @@
 		{appConfig.pageTitle} | All rights reserved.
 	</footer>
 </div>
+<Drawer bgDrawer="bg-gradient opacity-100">
+	<nav class={clsx('flex gap-1 flex-col h-full w-full items-center justify-center')}>
+		<a
+			class={clsx('btn', {
+				'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/'
+			})}
+			on:click={() => drawerStore.close()}
+			href="/">Home</a
+		>
+
+		<a
+			class={clsx('btn', {
+				'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/about'
+			})}
+			on:click={() => drawerStore.close()}
+			href="/about">About</a
+		>
+		<a
+			class={clsx('btn', {
+				'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/contact'
+			})}
+			on:click={() => drawerStore.close()}
+			href="/contact">Contact</a
+		>
+	</nav>
+</Drawer>
