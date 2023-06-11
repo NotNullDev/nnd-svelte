@@ -28,3 +28,50 @@ body {
 	font-family: 'Inter';
 	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
 } */
+
+@keyframes shake {
+	0% {
+		transform: translate(0,0);
+	}
+
+	33% {
+		transform: translate(-5px,0);
+	}
+
+	66% {
+		transform: translate(5px,0);
+	}
+
+	100% {
+		transform: translate(0,0);
+	}
+}
+
+#none-overlay {
+	animation: shake 250ms ease-in-out forwards;
+	animation-iteration-count: 2;
+}
+
+@keyframes bye {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+.bye {
+	animation: bye 200ms ease-in-out 250ms 1 forwards;
+}
+
+@keyframes after-bye {
+	to {
+		transform: translateX(-1em);
+	}
+}
+
+.after-bye {
+	animation: after-bye 200ms ease-in-out 350ms 1 forwards;
+}

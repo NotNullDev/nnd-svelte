@@ -7,8 +7,8 @@
 	import '../app.css';
 </script>
 
-<div class="h-full flex flex-col">
-	<header class="p-4 container mx-auto flex justify-between">
+<div class="flex flex-col">
+	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0">
 		<div>
 			<a
 				href="/"
@@ -99,6 +99,7 @@
 		<slot />
 	</div>
 	<footer class="p-8 text-center mt-5">
-		{appConfig.pageTitle} &copy; {new Date().getFullYear()}
+		&copy; {new Date().getFullYear()}
+		{appConfig.pageTitle} | All rights reserved.
 	</footer>
 </div>
