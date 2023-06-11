@@ -9,7 +9,7 @@
 	import '../app.css';
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col min-h-screen scroll-smooth">
 	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0">
 		<div class="flex items-center gap-2">
 			<button
@@ -44,13 +44,13 @@
 					})}
 					href="/blog">Blog</a
 				> -->
-				<a
+				<!-- <a
 					class={clsx('btn', {
 						'underline underline-offset-4 text-primary-400-500-token':
 							$page.url.pathname === '/about'
 					})}
 					href="/about">About</a
-				>
+				> -->
 				<a
 					class={clsx('btn', {
 						'underline underline-offset-4 text-primary-400-500-token':
@@ -122,14 +122,13 @@
 			on:click={() => drawerStore.close()}
 			href="/">Home</a
 		>
-
-		<a
+		<!-- <a
 			class={clsx('btn', {
 				'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/about'
 			})}
 			on:click={() => drawerStore.close()}
 			href="/about">About</a
-		>
+		> -->
 		<a
 			class={clsx('btn', {
 				'underline underline-offset-4 text-primary-400-500-token': $page.url.pathname === '/contact'
