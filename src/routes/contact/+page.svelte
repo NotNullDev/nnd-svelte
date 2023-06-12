@@ -2,28 +2,62 @@
 	import { PUBLIC_MESSAGE_API_KEY, PUBLIC_MESSAGE_ENDPOINT_URL } from '$env/static/public';
 	import EmailIcon from '$lib/icons/email.svg';
 	import LinkedInIcon from '$lib/icons/linkedin.svg';
+	import { toastStore } from '@skeletonlabs/skeleton';
 
 	let email: string = '';
 	let name: string = '';
 	let message: string = '';
 
-	const sendMessage = () => {
-		if (!email || email.trim().length === 0) return;
-		if (!name || name.trim().length === 0) return;
-		if (!message || message.trim().length === 0) return;
+	const sendMessage = async () => {
+		if (!email || email.trim().length === 0) {
+			toastStore.trigger({
+				message: 'Email is required field!'
+			});
+			return;
+		}
+		if (!name || name.trim().length === 0) {
+			toastStore.trigger({
+				message: 'Name is required field!'
+			});
+			return;
+		}
+		if (!message || message.trim().length === 0) {
+			toastStore.trigger({
+				message: 'Message is required field!'
+			});
+			return;
+		}
 
-		fetch(PUBLIC_MESSAGE_ENDPOINT_URL, {
-			method: 'POST',
-			headers: [['Content-Type', 'application/json']],
-			body: JSON.stringify({
-				email,
-				name,
-				message,
-				apiKey: PUBLIC_MESSAGE_API_KEY
-			})
-		});
+		try {
+			await fetch(PUBLIC_MESSAGE_ENDPOINT_URL, {
+				method: 'POST',
+				headers: [['Content-Type', 'application/json']],
+				body: JSON.stringify({
+					email,
+					name,
+					message,
+					apiKey: PUBLIC_MESSAGE_API_KEY
+				})
+			});
+			toastStore.trigger({
+				message: 'Thanks for effort!',
+				background: 'variant-filled-success'
+			});
+			email = '';
+			name = '';
+			message = '';
+		} catch (e) {
+			toastStore.trigger({
+				message: 'Something went wrong :(',
+				background: 'variant-filled-error'
+			});
+		}
 	};
 </script>
+
+<svelte:head>
+	<title>Contact</title>
+</svelte:head>
 
 <div class="flex-1 flex flex-col h-full items-center">
 	<div
@@ -40,20 +74,43 @@
 				<div>linkedin.com/in/notnulldev</div>
 			</a>
 		</div>
-		<div class="lg:p-8 flex flex-col gap-2 lg:card">
+		<form class="lg:p-8 flex flex-col gap-2 lg:card" on:submit|preventDefault={sendMessage}>
 			<label class="label">
 				<span>Email</span>
-				<input class="input" bind:value={email} type="email" placeholder="your@email.com" />
+				<input
+					class="input"
+					required
+					minlength="1"
+					maxlength="40"
+					bind:value={email}
+					type="email"
+					placeholder="your@email.com"
+				/>
 			</label>
 			<label class="label">
 				<span>Name</span>
-				<input class="input" bind:value={name} type="text" placeholder="John Doe" />
+				<input
+					required
+					minlength="1"
+					maxlength="2000"
+					class="input"
+					bind:value={name}
+					type="text"
+					placeholder="John Doe"
+				/>
 			</label>
 			<label class="label">
 				<span>Your message</span>
-				<textarea class="textarea" bind:value={message} placeholder="I really like your work!" />
+				<textarea
+					class="textarea"
+					required
+					minlength="1"
+					maxlength="2000"
+					bind:value={message}
+					placeholder="I really like your work!"
+				/>
 			</label>
-			<button class="btn variant-filled" on:click={sendMessage}>Send message</button>
-		</div>
+			<button type="submit" class="btn variant-filled">Send message</button>
+		</form>
 	</div>
 </div>

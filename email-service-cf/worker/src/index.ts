@@ -1,7 +1,11 @@
 import { SendEmail } from '@cloudflare/workers-types';
 import { EmailMessage } from 'cloudflare:email';
-import { Router, error, type RouterType } from 'itty-router';
+import { Router, createCors, error, json, type RouterType } from 'itty-router';
 import { createMimeMessage } from 'mimetext';
+
+const { preflight, corsify } = createCors({
+	origins: ['*']
+});
 
 export type EnvType = {
 	router?: RouterType;
@@ -16,12 +20,14 @@ export default {
 			env.router = createRouter(env);
 		}
 
-		return env.router.handle(request);
+		return env.router.handle(request).then(json).catch(error).then(corsify);
 	}
 };
 
 function createRouter(env: EnvType): RouterType {
 	const router = Router();
+
+	router.all('*', preflight);
 
 	router.get('/hello', () => {
 		return 'hi';
@@ -46,10 +52,6 @@ function createRouter(env: EnvType): RouterType {
 		await sendMessage(env, email, name, message);
 
 		return Response.json(body);
-	});
-
-	router.all('*', (req) => {
-		return new Response('route not found');
 	});
 
 	return router;

@@ -8,7 +8,7 @@ declare namespace svelteHTML {
 		// If you want to use on:beforeinstallprompt
 		// 'on:beforeinstallprompt'?: (event: any) => any;
 		// If you want to use myCustomAttribute={..} (note: all lowercase)
-		fetchpriority?: 'hight' | 'low' | 'auto';
+		fetchpriority?: 'high' | 'low' | 'auto';
 		// You can replace any with something more specific if you like
 	}
 }
