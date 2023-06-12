@@ -1,0 +1,9 @@
+name = "nnd-message-handler"
+main = "src/index.ts"
+compatibility_date = "2023-06-11"
+send_email = [
+    {type = "send_email", name = "SEB", destination_address = "your-email@example.com"},
+]
+[vars]
+targetEmail = "your-email@example.com"
+apiKey = "dasdasdaddssdasdadsdas"
