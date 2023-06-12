@@ -49,18 +49,21 @@
 <svelte:window on:resize={updateHeaderHeight} bind:scrollY bind:innerHeight />
 <div>
 	<section
-		class={clsx(`flex flex-row-reverse items-center h-screen transition-none`, '')}
+		class={clsx(`flex flex-row-reverse items-center h-screen transition-none overflow-x-hidden`)}
 		bind:this={firstSection}
 	>
 		<div class="flex-[2] flex items-center flex-col">
 			{#if ready}
-				<div class="text-8xl" in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}>
+				<div
+					class="text-5xl md:text-8xl"
+					in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}
+				>
 					Hi
 				</div>
 			{/if}
 			{#if ready}
 				<div
-					class="text-8xl text-center"
+					class="text-5xl md:text-8xl my-4 text-center"
 					in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
 				>
 					I am NotNullDev
@@ -164,62 +167,68 @@
 		</div> -->
 		<div class="flex flex-wrap justify-center gap-32 w-full mt-12">
 			<!-- infra -->
-			<section class="flex flex-col gap-6">
-				<h2 class="text-4xl">Infrastructure</h2>
-				<div class="flex gap-24 items-center justify-between">
+			<section class="flex flex-col gap-6 p-8 text-center">
+				<h2 class="text-4xl mt-8">Infrastructure</h2>
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">docker</div>
-					<img class="h-12" src={Docker} alt="docker" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Docker} alt="docker" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">kubernetes</div>
-					<img class="h-12" src={K8s} alt="kubernetes" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={K8s} alt="kubernetes" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">cloudflare</div>
-					<img class="h-6" src={Cloudflare} alt="cloudflare" />
+					<img loading="lazy" fetchpriority="hight" class="h-6" src={Cloudflare} alt="cloudflare" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">google cloud</div>
-					<img class="h-12" src={Gcp} alt="google cloud" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Gcp} alt="google cloud" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">microsoft azure</div>
-					<img class="h-12" src={Azure} alt="microsoft azure" />
+					<img
+						loading="lazy"
+						fetchpriority="hight"
+						class="h-12"
+						src={Azure}
+						alt="microsoft azure"
+					/>
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">linux</div>
-					<img class="h-12" src={Linux} alt="linux" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Linux} alt="linux" />
 				</div>
 			</section>
-			<section class="flex flex-col gap-6">
-				<h2 class="text-4xl">Languages and frameworks</h2>
-				<div class="flex gap-24 items-center justify-between">
+			<section class="flex flex-col gap-6 p-8 text-center">
+				<h2 class="text-4xl mt-8">Languages and frameworks</h2>
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">next js</div>
-					<img class="h-12" src={NextJs} alt="next js" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={NextJs} alt="next js" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">go</div>
-					<img class="h-6" src={Golang} alt="go" />
+					<img loading="lazy" fetchpriority="hight" class="h-6" src={Golang} alt="go" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">java</div>
-					<img class="h-12" src={Java} alt="java" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Java} alt="java" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">svelte</div>
-					<img class="h-12" src={SvelteIcon} alt="svelte" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={SvelteIcon} alt="svelte" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">typescript</div>
-					<img class="h-12" src={Ts} alt="typescript" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Ts} alt="typescript" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">spring</div>
-					<img class="h-12" src={Spring} alt="spring" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Spring} alt="spring" />
 				</div>
-				<div class="flex gap-24 items-center justify-between">
+				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">postgres</div>
-					<img class="h-12" src={Postgres} alt="postgres" />
+					<img loading="lazy" fetchpriority="hight" class="h-12" src={Postgres} alt="postgres" />
 				</div>
 			</section>
 		</div>
@@ -239,6 +248,8 @@
 					<img
 						width="380px"
 						height="200px"
+						fetchpriority="low"
+						loading="lazy"
 						src="https://cdn.notnulldev.com/daxer.webp"
 						alt="e-commerce application"
 						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
@@ -268,6 +279,8 @@
 					<img
 						width="380px"
 						height="200px"
+						loading="lazy"
+						fetchpriority="low"
 						src="https://cdn.notnulldev.com/e-com.webp"
 						alt="e-commerce application"
 						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
