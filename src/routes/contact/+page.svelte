@@ -11,22 +11,30 @@
 	const sendMessage = async () => {
 		if (!email || email.trim().length === 0) {
 			toastStore.trigger({
-				message: 'Email is required field!'
+				message: 'Email is required field!',
+				background: 'variant-filled-error'
 			});
 			return;
 		}
 		if (!name || name.trim().length === 0) {
 			toastStore.trigger({
-				message: 'Name is required field!'
+				message: 'Name is required field!',
+				background: 'variant-filled-error'
 			});
 			return;
 		}
 		if (!message || message.trim().length === 0) {
 			toastStore.trigger({
-				message: 'Message is required field!'
+				message: 'Message is required field!',
+				background: 'variant-filled-error'
 			});
 			return;
 		}
+
+		toastStore.trigger({
+			message: 'Sending message...',
+			autohide: false
+		});
 
 		try {
 			await fetch(PUBLIC_MESSAGE_ENDPOINT_URL, {
@@ -40,8 +48,9 @@
 				})
 			});
 			toastStore.trigger({
-				message: 'Thanks for effort!',
-				background: 'variant-filled-success'
+				message: `Form submitted. I'll respond soon!`,
+				background: 'variant-filled-success',
+				autohide: false
 			});
 			email = '';
 			name = '';
@@ -49,9 +58,14 @@
 		} catch (e) {
 			toastStore.trigger({
 				message: 'Something went wrong :(',
-				background: 'variant-filled-error'
+				background: 'variant-filled-error',
+				autohide: false
 			});
 		}
+
+		setTimeout(() => {
+			toastStore.clear();
+		}, 5000);
 	};
 </script>
 
