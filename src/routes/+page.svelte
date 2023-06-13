@@ -343,7 +343,7 @@
 		}
 	}
 
-	.n-in {
+	:global(.n-in) {
 		animation-name: n-in;
 		animation-duration: 1.5s;
 		animation-fill-mode: forwards;
@@ -351,7 +351,7 @@
 		animation-timing-function: ease-out;
 	}
 
-	.one-in {
+	:global(.one-in) {
 		animation-name: one-in;
 		animation-duration: 1.5s;
 		animation-fill-mode: forwards;
