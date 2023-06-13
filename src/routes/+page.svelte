@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Cloudflare from '$lib/icons/cloudflare.svg';
 	import Docker from '$lib/icons/docker-icon.svg';
 	import Golang from '$lib/icons/go.svg';
@@ -23,7 +24,23 @@
 	let scrollY: number;
 	let innerHeight: number;
 
-	$: heroScrollPercentage = scrollY / innerHeight;
+	function updateHeroCssVariables(scrollY: number, innerWindowHeight: number) {
+		let heroScrollPercentage = scrollY / innerWindowHeight;
+		let badgeRotationDeg = `${heroScrollPercentage * 160}deg`;
+
+		document.documentElement.style.setProperty('--badgeRotationDeg', badgeRotationDeg);
+		document.documentElement.style.setProperty(
+			'--heroScrollPercentage',
+			heroScrollPercentage.toString()
+		);
+	}
+
+	$: {
+		if (browser && scrollY && innerHeight) {
+			updateHeroCssVariables(scrollY, innerHeight);
+		}
+	}
+
 	let headerHeight: number = 78;
 
 	function updateHeaderHeight() {
@@ -36,7 +53,6 @@
 
 	let observer: IntersectionObserver;
 	let noneContainer: HTMLElement;
-	let isNoneVisible = false;
 	let nElement: HTMLElement;
 	let oneElement: HTMLElement;
 
@@ -52,7 +68,7 @@
 		updateHeaderHeight();
 		updateCSSVariables();
 		observer = new IntersectionObserver((entries, observer) => {
-			isNoneVisible = !!entries.at(0)?.isIntersecting;
+			const isNoneVisible = !!entries.at(0)?.isIntersecting;
 			if (isNoneVisible) {
 				if (nElement.classList.contains('n-in') || oneElement.classList.contains('one-in')) {
 					return;
@@ -112,12 +128,8 @@
 			<ul class="my-5 flex gap-1">
 				{#if ready}
 					<div
+						id="left-badge"
 						class={clsx('badge variant-filled')}
-						style={`
-								transform: rotate(${-Math.floor(160 * heroScrollPercentage)}deg) scale(${1 - heroScrollPercentage});
-								transform-origin: bottom left;
-								opacity: ${1 - heroScrollPercentage};
-						`}
 						in:fade|local={{ delay: 600, duration: 500 }}
 					>
 						Software developer
@@ -126,10 +138,7 @@
 				{#if ready}
 					<div
 						class={clsx('badge variant-filled')}
-						style={`
-                        rotate: ${Math.floor(160 * heroScrollPercentage)}deg;
-                        opacity: ${1 - heroScrollPercentage};
-                    `}
+						id="middle-badge"
 						in:fade|local={{ delay: 800, duration: 500 }}
 					>
 						Gym enthusiast
@@ -137,14 +146,8 @@
 				{/if}
 				{#if ready}
 					<div
+						id="right-badge"
 						class={clsx('badge variant-filled')}
-						style={`
-                transform: rotate(${-Math.floor(160 * heroScrollPercentage)}deg) scale(${
-							1 - heroScrollPercentage
-						});
-                transform-origin: bottom right;
-                opacity: ${1 - heroScrollPercentage};
-            `}
 						in:fade|local={{ delay: 1000, duration: 500 }}
 					>
 						IT enjoyer
@@ -160,18 +163,13 @@
 					height="300"
 					alt="hero"
 					in:fade
+					id="hero-image"
 					class="flex-[1] opacity-80"
-					style={`
-                    transform: rotate(${-Math.floor(160 * heroScrollPercentage)}deg) scale(${
-						1 - heroScrollPercentage
-					});
-                    transform-origin: bottom left;
-                    opacity: ${1 - heroScrollPercentage};
-                `}
 				/>
 			{/if}
 		</div>
 	</section>
+
 	<section class="flex flex-col items-center min-h-[100vh]">
 		<div>I aim to be</div>
 		<div class="text-6xl flex gap-3 flex-wrap items-center justify-center">
@@ -186,10 +184,7 @@
 				<div bind:this={oneElement}>one</div>
 			</div>
 		</div>
-		<!-- <div class="mt-5 text-slate-400">
-			In IT, to be good at something you need to know what are alternative ways of doing things and
-			use knowledge from another topics to choose the best option for your problem.
-		</div> -->
+
 		<div class="flex flex-wrap justify-center gap-32 w-full mt-12">
 			<!-- infra -->
 			<section class="flex flex-col gap-6 p-8 text-center">
@@ -348,23 +343,44 @@
 		}
 	}
 
-	:root {
-		--none-animation-duration: 1.5s;
-		--none-animation-fill-mode: forwards;
-	}
-
 	.n-in {
 		animation-name: n-in;
-		animation-duration: var(--none-animation-duration);
-		animation-fill-mode: var(--none-animation-fill-mode);
+		animation-duration: 1.5s;
+		animation-fill-mode: forwards;
 		animation-delay: 100ms;
 		animation-timing-function: ease-out;
 	}
 
 	.one-in {
 		animation-name: one-in;
-		animation-duration: var(--none-animation-duration);
-		animation-fill-mode: var(--none-animation-fill-mode);
+		animation-duration: 1.5s;
+		animation-fill-mode: forwards;
 		animation-delay: 100ms;
+	}
+
+	#left-badge {
+		transform: rotate(calc(var(--badgeRotationDeg) * -1))
+			scale(calc(1 - var(--heroScrollPercentage)));
+		transform-origin: bottom left;
+		opacity: calc(1 - var(--heroScrollPercentage));
+	}
+
+	#middle-badge {
+		transform: rotate(calc(var(--badgeRotationDeg))) scale(calc(1 - var(--heroScrollPercentage)));
+		opacity: calc(1 - var(--heroScrollPercentage));
+	}
+
+	#right-badge {
+		transform: rotate(calc(var(--badgeRotationDeg) * -1))
+			scale(calc(1 - var(--heroScrollPercentage)));
+		transform-origin: bottom right;
+		opacity: calc(1 - var(--heroScrollPercentage));
+	}
+
+	#hero-image {
+		transform: rotate(calc(var(--badgeRotationDeg) * -1))
+			scale(calc(1 - var(--heroScrollPercentage)));
+		transform-origin: bottom left;
+		opacity: calc(1 - var(--heroScrollPercentage));
 	}
 </style>
