@@ -14,7 +14,7 @@
 	import Ts from '$lib/icons/typescript-icon.svg';
 
 	import clsx from 'clsx';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 
 	let firstSection: HTMLElement;
@@ -24,12 +24,6 @@
 	let innerHeight: number;
 
 	$: heroScrollPercentage = scrollY / innerHeight;
-	$: noneScrollPercentage = (() => {
-		let relativeScroll = scrollY - innerHeight / 10;
-		if (relativeScroll < 0) return 0;
-
-		return 2 * (relativeScroll / innerHeight);
-	})();
 	let headerHeight: number = 78;
 
 	function updateHeaderHeight() {
@@ -40,13 +34,59 @@
 		firstSection.style.height = `${window.innerHeight - headerHeight}px`;
 	}
 
+	let observer: IntersectionObserver;
+	let noneContainer: HTMLElement;
+	let isNoneVisible = false;
+	let nElement: HTMLElement;
+	let oneElement: HTMLElement;
+
+	function updateCSSVariables() {
+		const widthToMove = getComputedStyle(nElement).width;
+		const heightToMove = getComputedStyle(nElement).height;
+		document.documentElement.style.setProperty('--one-width', widthToMove);
+
+		document.documentElement.style.setProperty('--n-height', heightToMove);
+	}
+
 	onMount(() => {
 		updateHeaderHeight();
+		updateCSSVariables();
+		observer = new IntersectionObserver((entries, observer) => {
+			isNoneVisible = !!entries.at(0)?.isIntersecting;
+			if (isNoneVisible) {
+				if (nElement.classList.contains('n-in') || oneElement.classList.contains('one-in')) {
+					return;
+				}
+				nElement.classList.add('n-in');
+				oneElement.classList.add('one-in');
+			} else {
+				nElement.classList.remove('n-in');
+				oneElement.classList.remove('one-in');
+			}
+		});
+
+		if (noneContainer) {
+			observer.observe(noneContainer);
+		}
+
 		ready = true;
+	});
+
+	onDestroy(() => {
+		if (observer) {
+			observer.disconnect();
+		}
 	});
 </script>
 
-<svelte:window on:resize={updateHeaderHeight} bind:scrollY bind:innerHeight />
+<svelte:window
+	on:resize={() => {
+		updateHeaderHeight();
+		updateCSSVariables();
+	}}
+	bind:scrollY
+	bind:innerHeight
+/>
 <div>
 	<section
 		class={clsx(`flex flex-row-reverse items-center h-screen transition-none overflow-x-hidden`)}
@@ -74,12 +114,10 @@
 					<div
 						class={clsx('badge variant-filled')}
 						style={`
-                    transform: rotate(${-Math.floor(160 * heroScrollPercentage)}deg) scale(${
-							1 - heroScrollPercentage
-						});
-                    transform-origin: bottom left;
-                    opacity: ${1 - heroScrollPercentage};
-            `}
+								transform: rotate(${-Math.floor(160 * heroScrollPercentage)}deg) scale(${1 - heroScrollPercentage});
+								transform-origin: bottom left;
+								opacity: ${1 - heroScrollPercentage};
+						`}
 						in:fade|local={{ delay: 600, duration: 500 }}
 					>
 						Software developer
@@ -143,22 +181,9 @@
 			<div>trades</div>
 			<div>master</div>
 			<div>of</div>
-			<div class="flex flex-nowrap">
-				<div
-					style={`
-                display: inline-block;
-                opacity: ${1 - noneScrollPercentage};
-            `}
-				>
-					n
-				</div>
-				<div
-					style={`
-                transform: translateX(${-Math.floor(16 * noneScrollPercentage)}px);
-            `}
-				>
-					one
-				</div>
+			<div class="flex flex-nowrap" bind:this={noneContainer}>
+				<div bind:this={nElement}>n</div>
+				<div bind:this={oneElement}>one</div>
 			</div>
 		</div>
 		<!-- <div class="mt-5 text-slate-400">
@@ -302,3 +327,44 @@
 		<h2 class="text-2xl">Recent Posts</h2>
 	</section> -->
 </div>
+
+<style global>
+	@keyframes n-in {
+		0% {
+		}
+
+		100% {
+			opacity: 0;
+			transform: translateY(calc(var(--n-height) * -1));
+		}
+	}
+
+	@keyframes one-in {
+		0% {
+		}
+
+		100% {
+			transform: translateX(calc(var(--one-width) * -1));
+		}
+	}
+
+	:root {
+		--none-animation-duration: 1.5s;
+		--none-animation-fill-mode: forwards;
+	}
+
+	.n-in {
+		animation-name: n-in;
+		animation-duration: var(--none-animation-duration);
+		animation-fill-mode: var(--none-animation-fill-mode);
+		animation-delay: 100ms;
+		animation-timing-function: ease-out;
+	}
+
+	.one-in {
+		animation-name: one-in;
+		animation-duration: var(--none-animation-duration);
+		animation-fill-mode: var(--none-animation-fill-mode);
+		animation-delay: 100ms;
+	}
+</style>
