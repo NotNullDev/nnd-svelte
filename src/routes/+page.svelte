@@ -64,21 +64,26 @@
 		document.documentElement.style.setProperty('--n-height', heightToMove);
 	}
 
+	const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+		const isNoneVisible = !!entries.at(0)?.isIntersecting;
+		if (isNoneVisible) {
+			if (nElement.classList.contains('n-in') || oneElement.classList.contains('one-in')) {
+				return;
+			}
+			nElement.classList.add('n-in');
+			oneElement.classList.add('one-in');
+		} else {
+			nElement.classList.remove('n-in');
+			oneElement.classList.remove('one-in');
+		}
+	};
+
 	onMount(() => {
 		updateHeaderHeight();
 		updateCSSVariables();
-		observer = new IntersectionObserver((entries, observer) => {
-			const isNoneVisible = !!entries.at(0)?.isIntersecting;
-			if (isNoneVisible) {
-				if (nElement.classList.contains('n-in') || oneElement.classList.contains('one-in')) {
-					return;
-				}
-				nElement.classList.add('n-in');
-				oneElement.classList.add('one-in');
-			} else {
-				nElement.classList.remove('n-in');
-				oneElement.classList.remove('one-in');
-			}
+
+		observer = new IntersectionObserver(observerCallback, {
+			threshold: 1
 		});
 
 		if (noneContainer) {
@@ -345,17 +350,17 @@
 
 	:global(.n-in) {
 		animation-name: n-in;
-		animation-duration: 1.5s;
+		animation-duration: 2s;
 		animation-fill-mode: forwards;
-		animation-delay: 100ms;
+		animation-delay: 250ms;
 		animation-timing-function: ease-out;
 	}
 
 	:global(.one-in) {
 		animation-name: one-in;
-		animation-duration: 1.5s;
+		animation-duration: 2s;
 		animation-fill-mode: forwards;
-		animation-delay: 100ms;
+		animation-delay: 250ms;
 	}
 
 	#left-badge {
