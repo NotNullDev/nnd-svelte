@@ -163,7 +163,7 @@
 		<div class="flex-1 flex items-center justify-center p-8 max-[1200px]:hidden">
 			{#if ready}
 				<img
-					src="https://cdn.notnulldev.com/hero-image.webp"
+					src="//cdn.notnulldev.com/hero-image.webp"
 					width="300"
 					height="300"
 					alt="hero"
@@ -196,58 +196,58 @@
 				<h2 class="text-4xl mt-8">Infrastructure</h2>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">docker</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="docker" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="Docker">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">kubernetes</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="kubernetes" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="Kubernetes">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">cloudflare</div>
-					<img loading="lazy" fetchpriority="high" class="h-6" src={Cloudflare} alt="cloudflare" />
+					<img loading="lazy" fetchpriority="high" class="h-6" src={Cloudflare} alt="CloudFlare">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">google cloud</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="google cloud" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="Google cloud">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">microsoft azure</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Azure} alt="microsoft azure" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Azure} alt="Microsoft azure">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">linux</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="linux" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="Linux">
 				</div>
 			</section>
 			<section class="flex flex-col gap-6 p-8 text-center">
 				<h2 class="text-4xl mt-8">Languages and frameworks</h2>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">next js</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="next js" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="Next.js">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">go</div>
-					<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="go" />
+					<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="Go lang">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">java</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="java" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Java}  alt="Java">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">svelte</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="svelte" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="Svelte">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">typescript</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="typescript" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="TypeScript">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">spring</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="spring" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="Spring">
 				</div>
 				<div class="flex gap-24 flex-row-reverse items-center justify-between">
 					<div class="capitalize font-bold text-xl">postgres</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="postgres" />
+					<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="Postgres">
 				</div>
 			</section>
 		</div>
@@ -267,12 +267,12 @@
 					<img
 						width="380"
 						height="200"
-						fetchpriority="low"
 						loading="lazy"
-						src="https://cdn.notnulldev.com/daxer.webp"
+					        fetchpriority="low"
+						src="//cdn.notnulldev.com/daxer.webp"
 						alt="e-commerce application"
 						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-					/>
+					>
 				</div>
 				<div class="w-full p-6 flex flex-col flex-1">
 					<div class="flex-1">
@@ -281,7 +281,7 @@
 					</div>
 					<div class="w-full flex justify-end group-hover:animate-pulse">
 						<a
-							href="https://daxer.notnulldev.com"
+							href="//daxer.notnulldev.com"
 							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
 						>
 					</div>
@@ -300,10 +300,10 @@
 						height="200"
 						loading="lazy"
 						fetchpriority="low"
-						src="https://cdn.notnulldev.com/e-com.webp"
+						src="//cdn.notnulldev.com/e-com.webp"
 						alt="e-commerce application"
 						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-					/>
+					>
 				</div>
 				<div class="w-full p-6 flex flex-col flex-1">
 					<div class="flex-1">
@@ -315,7 +315,7 @@
 					</div>
 					<div class="w-full flex justify-end group-hover:animate-pulse">
 						<a
-							href="https://e-com.notnulldev.com"
+							href="//e-com.notnulldev.com"
 							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
 						>
 					</div>
