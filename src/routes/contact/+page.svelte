@@ -77,14 +77,14 @@
 	<div
 		class="lg:mt-24 mt-8 m-4 flex max-lg:flex-col card variant-ghost-surface p-8 gap-8 lg:gap-48"
 	>
-		<div class="">
+		<div>
 			<h2 class="text-xl flex flex-col gap-4 items-center">Contact information</h2>
 			<a href="mailto: business@notnulldev.com" class="flex gap-4 mt-10">
-				<img src={EmailIcon} alt="email" />
+				<img src={EmailIcon} alt="email">
 				<div>business@notnulldev.com</div>
 			</a>
 			<a href="https://www.linkedin.com/in/notnulldev" class="flex items-center gap-4 mt-5">
-				<img src={LinkedInIcon} alt="email" />
+				<img src={LinkedInIcon} alt="LinkedIn">
 				<div>linkedin.com/in/notnulldev</div>
 			</a>
 		</div>
@@ -99,7 +99,7 @@
 					bind:value={email}
 					type="email"
 					placeholder="your@email.com"
-				/>
+				>
 			</label>
 			<label class="label">
 				<span>Name</span>
@@ -111,7 +111,7 @@
 					bind:value={name}
 					type="text"
 					placeholder="John Doe"
-				/>
+				>
 			</label>
 			<label class="label">
 				<span>Your message</span>
