@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex flex-col min-h-screen scroll-smooth">
-	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0 z-[1001]">
+	<header class="p-4 mx-auto flex justify-between shadow w-full fixed top-0 left-0 z-[1001]">
 		<div class="w-[93px] flex items-center md:hidden">
 			<button
 				on:click={() => {
@@ -22,7 +22,7 @@
 					src={HamburgerMenu}
 					alt="hamburger menu"
 					class="btn btn-sm text-white fill-white stroke-white"
-				>
+				/>
 			</button>
 		</div>
 		<a

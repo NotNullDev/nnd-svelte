@@ -1,2 +1,1 @@
-# Used resources:
-Icons: https://svgporn.com/
+# [NotNullDev.com](https://notnulldev.com)

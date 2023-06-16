@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Cloudflare from '$lib/icons/cloudflare.svg';
 	import Docker from '$lib/icons/docker-icon.svg';
 	import Golang from '$lib/icons/go.svg';
@@ -69,16 +70,9 @@
 	};
 
 	onMount(() => {
-		updateHeaderHeight();
-		updateCSSVariables();
-
 		observer = new IntersectionObserver(observerCallback, {
 			threshold: 1
 		});
-
-		if (noneContainer) {
-			observer.observe(noneContainer);
-		}
 
 		ready = true;
 	});
@@ -88,230 +82,252 @@
 			observer.disconnect();
 		}
 	});
+
+	$: {
+		if (browser && noneContainer && observer) {
+			updateCSSVariables();
+			observer.observe(noneContainer);
+		}
+	}
 </script>
 
 <svelte:window
 	on:resize={() => {
-		updateHeaderHeight();
 		updateCSSVariables();
 	}}
 	on:scroll={() => {
 		updateHeroCssVariables(scrollY, window.innerHeight);
 	}}
 />
-<div>
-	<section
-		class={clsx(`flex flex-row-reverse items-center h-screen transition-none`)}
-		bind:this={firstSection}
-	>
-		<div class="flex-[2] flex items-center flex-col">
-			<div
-				class="text-5xl md:text-8xl"
-				in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}
-			>
-				Hi
-			</div>
-			<div
-				class="text-5xl md:text-8xl my-4 text-center"
-				in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
-			>
-				I am NotNullDev
-			</div>
-			<ul class="my-5 flex gap-1">
-				<div
-					id="left-badge"
-					class={clsx('badge variant-filled')}
-					in:fade|local={{ delay: 600, duration: 500 }}
-				>
-					Software developer
-				</div>
-				<div
-					class={clsx('badge variant-filled')}
-					id="middle-badge"
-					in:fade|local={{ delay: 800, duration: 500 }}
-				>
-					Gym enthusiast
-				</div>
-				<div
-					id="right-badge"
-					class={clsx('badge variant-filled')}
-					in:fade|local={{ delay: 1000, duration: 500 }}
-				>
-					IT enjoyer
-				</div>
-			</ul>
-		</div>
-		<div class="flex-1 flex items-center justify-center p-8 max-[1200px]:hidden">
-			<img
-				src="https://cdn.notnulldev.com/hero-image.webp"
-				width="300"
-				height="300"
-				alt="hero"
-				in:fade
-				id="hero-image"
-				class="flex-[1] opacity-80"
-			/>
-		</div>
-	</section>
 
-	<section class="flex flex-col items-center min-h-[100vh]">
-		<div>I aim to be</div>
-		<div class="text-6xl flex gap-3 flex-wrap items-center justify-center">
-			<div>Jack</div>
-			<div>of</div>
-			<div>all</div>
-			<div>trades</div>
-			<div>master</div>
-			<div>of</div>
-			<div class="flex flex-nowrap" bind:this={noneContainer}>
-				{#if ready}
-					<div bind:this={nElement}>n</div>
-				{/if}
-				<div bind:this={oneElement}>one</div>
+{#if ready || !browser}
+	<div>
+		<section
+			class={clsx(
+				`flex flex-row-reverse items-center h-screen transition-none overflow-hidden z-0`
+			)}
+			bind:this={firstSection}
+		>
+			<div class="flex-[2] flex items-center flex-col">
+				<div
+					class="text-5xl md:text-8xl"
+					in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}
+				>
+					Hi
+				</div>
+				<div
+					class="text-5xl md:text-8xl my-4 text-center"
+					in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
+				>
+					I am NotNullDev
+				</div>
+				<ul class="my-5 flex gap-1">
+					<div
+						id="left-badge"
+						class={clsx('badge variant-filled')}
+						in:fade|local={{ delay: 600, duration: 500 }}
+					>
+						Software developer
+					</div>
+					<div
+						class={clsx('badge variant-filled')}
+						id="middle-badge"
+						in:fade|local={{ delay: 800, duration: 500 }}
+					>
+						Gym enthusiast
+					</div>
+					<div
+						id="right-badge"
+						class={clsx('badge variant-filled')}
+						in:fade|local={{ delay: 1000, duration: 500 }}
+					>
+						IT enjoyer
+					</div>
+				</ul>
 			</div>
-		</div>
+			<div class="flex-1 flex items-center justify-center p-8 max-[1200px]:hidden">
+				<img
+					src="https://cdn.notnulldev.com/hero-image.webp"
+					width="300"
+					height="300"
+					alt="hero"
+					in:fade
+					id="hero-image"
+					class="flex-[1] opacity-80"
+				/>
+			</div>
+		</section>
 
-		<div class="flex flex-wrap justify-center gap-32 w-full mt-12">
-			<!-- infra -->
-			<section class="flex flex-col gap-6 p-8 text-center">
-				<h2 class="text-4xl mt-8">Infrastructure</h2>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">docker</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="docker" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">kubernetes</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="kubernetes" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">cloudflare</div>
-					<img loading="lazy" fetchpriority="high" class="h-6" src={Cloudflare} alt="cloudflare" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">google cloud</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="google cloud" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">microsoft azure</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Azure} alt="microsoft azure" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">linux</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="linux" />
-				</div>
-			</section>
-			<section class="flex flex-col gap-6 p-8 text-center">
-				<h2 class="text-4xl mt-8">Languages and frameworks</h2>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">next js</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="next js" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">go</div>
-					<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="go" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">java</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="java" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">svelte</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="svelte" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">typescript</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="typescript" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">spring</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="spring" />
-				</div>
-				<div class="flex gap-24 flex-row-reverse items-center justify-between">
-					<div class="capitalize font-bold text-xl">postgres</div>
-					<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="postgres" />
-				</div>
-			</section>
-		</div>
-	</section>
-	<section class="flex flex-col min-h-[120vh]">
-		<h2 class="text-6xl my-24 w-full text-center">Recent Projects</h2>
-		{@debug}
-		<!-- projects group -->
-		<div class="p-1 flex justify-center gap-10 max-[900px]:flex-col max-[900px]:items-center">
-			<!-- single card -->
-			<div
-				class={clsx(
-					'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
-					'shadow-sm shadow-slate-950 '
-				)}
-			>
-				<div class="rounded-t-xl">
-					<img
-						width="380"
-						height="200"
-						fetchpriority="low"
-						loading="lazy"
-						src="https://cdn.notnulldev.com/daxer.webp"
-						alt="e-commerce application"
-						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-					/>
-				</div>
-				<div class="w-full p-6 flex flex-col flex-1">
-					<div class="flex-1">
-						<h2 class="font-bold text-xl">Local business</h2>
-						<div class="my-5 text-sm text-slate-400">Website for local business</div>
-					</div>
-					<div class="w-full flex justify-end group-hover:animate-pulse">
-						<a
-							href="https://daxer.notnulldev.com"
-							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
-						>
-					</div>
+		<section class="flex flex-col items-center min-h-[100vh]">
+			<div>I aim to be</div>
+			<div class="text-6xl flex gap-3 flex-wrap items-center justify-center">
+				<div>Jack</div>
+				<div>of</div>
+				<div>all</div>
+				<div>trades</div>
+				<div>master</div>
+				<div>of</div>
+				<div class="flex flex-nowrap" bind:this={noneContainer}>
+					{#if ready}
+						<div bind:this={nElement}>n</div>
+					{/if}
+					<div bind:this={oneElement}>one</div>
 				</div>
 			</div>
-			<!-- single card -->
-			<div
-				class={clsx(
-					'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
-					'shadow-sm shadow-slate-950 '
-				)}
-			>
-				<div class="rounded-t-xl">
-					<img
-						width="380"
-						height="200"
-						loading="lazy"
-						fetchpriority="low"
-						src="https://cdn.notnulldev.com/e-com.webp"
-						alt="e-commerce application"
-						class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-					/>
-				</div>
-				<div class="w-full p-6 flex flex-col flex-1">
-					<div class="flex-1">
-						<h2 class="font-bold text-xl">E-commerce</h2>
-						<div class="my-5 text-sm text-slate-400">
-							Simple e-commerce site built with Next.js, prisma, trpc, tailwind, nextauth, stripe
-							and daisyui.
+
+			<div class="flex flex-wrap justify-center gap-32 w-full mt-12">
+				<!-- infra -->
+				<section class="flex flex-col gap-6 p-8 text-center">
+					<h2 class="text-4xl mt-8">Infrastructure</h2>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">docker</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="docker" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">kubernetes</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="kubernetes" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">cloudflare</div>
+						<img
+							loading="lazy"
+							fetchpriority="high"
+							class="h-6"
+							src={Cloudflare}
+							alt="cloudflare"
+						/>
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">google cloud</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="google cloud" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">microsoft azure</div>
+						<img
+							loading="lazy"
+							fetchpriority="high"
+							class="h-12"
+							src={Azure}
+							alt="microsoft azure"
+						/>
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">linux</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="linux" />
+					</div>
+				</section>
+				<section class="flex flex-col gap-6 p-8 text-center">
+					<h2 class="text-4xl mt-8">Languages and frameworks</h2>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">next js</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="next js" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">go</div>
+						<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="go" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">java</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="java" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">svelte</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="svelte" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">typescript</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="typescript" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">spring</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="spring" />
+					</div>
+					<div class="flex gap-24 flex-row-reverse items-center justify-between">
+						<div class="capitalize font-bold text-xl">postgres</div>
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="postgres" />
+					</div>
+				</section>
+			</div>
+		</section>
+		<section class="flex flex-col min-h-[120vh]">
+			<h2 class="text-6xl my-24 w-full text-center">Recent Projects</h2>
+			<!-- projects group -->
+			<div class="p-1 flex justify-center gap-10 max-[900px]:flex-col max-[900px]:items-center">
+				<!-- single card -->
+				<div
+					class={clsx(
+						'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
+						'shadow-sm shadow-slate-950 '
+					)}
+				>
+					<div class="rounded-t-xl">
+						<img
+							width="380"
+							height="200"
+							fetchpriority="low"
+							loading="lazy"
+							src="https://cdn.notnulldev.com/daxer.webp"
+							alt="e-commerce application"
+							class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
+						/>
+					</div>
+					<div class="w-full p-6 flex flex-col flex-1">
+						<div class="flex-1">
+							<h2 class="font-bold text-xl">Local business</h2>
+							<div class="my-5 text-sm text-slate-400">Website for local business</div>
+						</div>
+						<div class="w-full flex justify-end group-hover:animate-pulse">
+							<a
+								href="https://daxer.notnulldev.com"
+								class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
+							>
 						</div>
 					</div>
-					<div class="w-full flex justify-end group-hover:animate-pulse">
-						<a
-							href="https://e-com.notnulldev.com"
-							class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
-						>
+				</div>
+				<!-- single card -->
+				<div
+					class={clsx(
+						'flex flex-col w-[360px] h-[420px] rounded-xl hover:shadow-xl hover:shadow-indigo-600 group hover:scale-105 duration-300',
+						'shadow-sm shadow-slate-950 '
+					)}
+				>
+					<div class="rounded-t-xl">
+						<img
+							width="380"
+							height="200"
+							loading="lazy"
+							fetchpriority="low"
+							src="https://cdn.notnulldev.com/e-com.webp"
+							alt="e-commerce application"
+							class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
+						/>
+					</div>
+					<div class="w-full p-6 flex flex-col flex-1">
+						<div class="flex-1">
+							<h2 class="font-bold text-xl">E-commerce</h2>
+							<div class="my-5 text-sm text-slate-400">
+								Simple e-commerce site built with Next.js, prisma, trpc, tailwind, nextauth, stripe
+								and daisyui.
+							</div>
+						</div>
+						<div class="w-full flex justify-end group-hover:animate-pulse">
+							<a
+								href="https://e-com.notnulldev.com"
+								class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
+							>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- <section>
+		</section>
+		<!-- <section>
 		<h2 class="text-2xl">Recent Posts</h2>
 	</section> -->
-</div>
+	</div>
+{/if}
 
-<style global>
-	@keyframes n-in {
+<style>
+	@keyframes -global-n-in {
 		0% {
 		}
 
@@ -321,8 +337,9 @@
 		}
 	}
 
-	@keyframes one-in {
+	@keyframes -global-one-in {
 		0% {
+			transform: translateX(0);
 		}
 
 		100% {
