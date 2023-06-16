@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import Cloudflare from '$lib/icons/cloudflare.svg';
 	import Docker from '$lib/icons/docker-icon.svg';
 	import Golang from '$lib/icons/go.svg';
@@ -21,9 +20,6 @@
 	let firstSection: HTMLElement;
 	let ready = false;
 
-	let scrollY: number;
-	let innerHeight: number;
-
 	function updateHeroCssVariables(scrollY: number, innerWindowHeight: number) {
 		let heroScrollPercentage = scrollY / innerWindowHeight;
 		let badgeRotationDeg = `${heroScrollPercentage * 160}deg`;
@@ -35,18 +31,12 @@
 		);
 	}
 
-	$: {
-		if (browser && scrollY && innerHeight) {
-			updateHeroCssVariables(scrollY, innerHeight);
-		}
-	}
-
 	let headerHeight: number = 78;
 
 	function updateHeaderHeight() {
 		const header = document.querySelector('header');
 		if (!header) return;
-		headerHeight = Number(getComputedStyle(header).height.replace('px', ''));
+		headerHeight = parseInt(getComputedStyle(header).height);
 
 		firstSection.style.height = `${window.innerHeight - headerHeight}px`;
 	}
@@ -57,10 +47,10 @@
 	let oneElement: HTMLElement;
 
 	function updateCSSVariables() {
+		if (!nElement) return;
 		const widthToMove = getComputedStyle(nElement).width;
 		const heightToMove = getComputedStyle(nElement).height;
 		document.documentElement.style.setProperty('--one-width', widthToMove);
-
 		document.documentElement.style.setProperty('--n-height', heightToMove);
 	}
 
@@ -105,73 +95,62 @@
 		updateHeaderHeight();
 		updateCSSVariables();
 	}}
-	bind:scrollY
-	bind:innerHeight
+	on:scroll={() => {
+		updateHeroCssVariables(scrollY, window.innerHeight);
+	}}
 />
 <div>
 	<section
-		class={clsx(`flex flex-row-reverse items-center h-screen transition-none overflow-x-hidden`)}
+		class={clsx(`flex flex-row-reverse items-center h-screen transition-none`)}
 		bind:this={firstSection}
 	>
 		<div class="flex-[2] flex items-center flex-col">
-			{#if ready}
-				<div
-					class="text-5xl md:text-8xl"
-					in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}
-				>
-					Hi
-				</div>
-			{/if}
-			{#if ready}
-				<div
-					class="text-5xl md:text-8xl my-4 text-center"
-					in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
-				>
-					I am NotNullDev
-				</div>
-			{/if}
+			<div
+				class="text-5xl md:text-8xl"
+				in:fly|local={{ opacity: 0, delay: 0, duration: 500, y: -40 }}
+			>
+				Hi
+			</div>
+			<div
+				class="text-5xl md:text-8xl my-4 text-center"
+				in:fly|local={{ opacity: 0, delay: 700, duration: 500, x: -40 }}
+			>
+				I am NotNullDev
+			</div>
 			<ul class="my-5 flex gap-1">
-				{#if ready}
-					<div
-						id="left-badge"
-						class={clsx('badge variant-filled')}
-						in:fade|local={{ delay: 600, duration: 500 }}
-					>
-						Software developer
-					</div>
-				{/if}
-				{#if ready}
-					<div
-						class={clsx('badge variant-filled')}
-						id="middle-badge"
-						in:fade|local={{ delay: 800, duration: 500 }}
-					>
-						Gym enthusiast
-					</div>
-				{/if}
-				{#if ready}
-					<div
-						id="right-badge"
-						class={clsx('badge variant-filled')}
-						in:fade|local={{ delay: 1000, duration: 500 }}
-					>
-						IT enjoyer
-					</div>
-				{/if}
+				<div
+					id="left-badge"
+					class={clsx('badge variant-filled')}
+					in:fade|local={{ delay: 600, duration: 500 }}
+				>
+					Software developer
+				</div>
+				<div
+					class={clsx('badge variant-filled')}
+					id="middle-badge"
+					in:fade|local={{ delay: 800, duration: 500 }}
+				>
+					Gym enthusiast
+				</div>
+				<div
+					id="right-badge"
+					class={clsx('badge variant-filled')}
+					in:fade|local={{ delay: 1000, duration: 500 }}
+				>
+					IT enjoyer
+				</div>
 			</ul>
 		</div>
 		<div class="flex-1 flex items-center justify-center p-8 max-[1200px]:hidden">
-			{#if ready}
-				<img
-					src="https://cdn.notnulldev.com/hero-image.webp"
-					width="300"
-					height="300"
-					alt="hero"
-					in:fade
-					id="hero-image"
-					class="flex-[1] opacity-80"
-				/>
-			{/if}
+			<img
+				src="https://cdn.notnulldev.com/hero-image.webp"
+				width="300"
+				height="300"
+				alt="hero"
+				in:fade
+				id="hero-image"
+				class="flex-[1] opacity-80"
+			/>
 		</div>
 	</section>
 
@@ -185,7 +164,9 @@
 			<div>master</div>
 			<div>of</div>
 			<div class="flex flex-nowrap" bind:this={noneContainer}>
-				<div bind:this={nElement}>n</div>
+				{#if ready}
+					<div bind:this={nElement}>n</div>
+				{/if}
 				<div bind:this={oneElement}>one</div>
 			</div>
 		</div>
@@ -254,6 +235,7 @@
 	</section>
 	<section class="flex flex-col min-h-[120vh]">
 		<h2 class="text-6xl my-24 w-full text-center">Recent Projects</h2>
+		{@debug}
 		<!-- projects group -->
 		<div class="p-1 flex justify-center gap-10 max-[900px]:flex-col max-[900px]:items-center">
 			<!-- single card -->

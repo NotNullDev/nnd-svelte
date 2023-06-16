@@ -11,13 +11,12 @@
 </script>
 
 <div class="flex flex-col min-h-screen scroll-smooth">
-	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0">
+	<header class="p-4 mx-auto flex justify-between shadow w-full sticky top-0 z-[1001]">
 		<div class="w-[93px] flex items-center md:hidden">
 			<button
 				on:click={() => {
 					drawerStore.open();
 				}}
-				class=""
 			>
 				<img
 					src={HamburgerMenu}
