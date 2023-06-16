@@ -23,7 +23,7 @@
 					src={HamburgerMenu}
 					alt="hamburger menu"
 					class="btn btn-sm text-white fill-white stroke-white"
-				/>
+				>
 			</button>
 		</div>
 		<a
@@ -51,7 +51,7 @@
 				>
 			</nav>
 			<div class="flex gap-1 items-center justify-center h-full p-1">
-				<a href="https://github.com/notnulldev" target="_blank"
+				<a href="https://github.com/notnulldev" target="_blank" rel="noopener"
 					><svg
 						viewBox="0 0 24 24"
 						width="24"
@@ -66,7 +66,7 @@
 					></a
 				>
 				<div class="ml-1 border-r border-r-pink-800 h-4" />
-				<a href="https://www.linkedin.com/in/notnulldev" target="_blank"
+				<a href="https://www.linkedin.com/in/notnulldev" target="_blank" rel="noopener"
 					><svg
 						width="24"
 						height="32"
