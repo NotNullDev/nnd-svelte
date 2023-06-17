@@ -33,7 +33,7 @@
 		);
 	}
 
-	let headerHeight: number = 78;
+	let headerHeight = 78;
 
 	function updateHeaderHeight() {
 		const header = document.querySelector('header');
