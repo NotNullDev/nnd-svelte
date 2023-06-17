@@ -25,10 +25,11 @@
 	function updateHeroCssVariables(scrollY: number, innerWindowHeight: number) {
 		let heroScrollPercentage = scrollY / innerWindowHeight;
 		let badgeRotationDeg = `${heroScrollPercentage * 160}deg`;
-                const rootStyle = document.documentElement.style;
 
-	etProperty('--badgeRotationDeg', badgeRotationDeg);
-		.setProperty(
+		const rootStyle = document.documentElement.style;
+
+		rootStyle.setProperty('--badgeRotationDeg', badgeRotationDeg);
+		rootStyle.setProperty(
 			'--heroScrollPercentage',
 			heroScrollPercentage.toString()
 		);
