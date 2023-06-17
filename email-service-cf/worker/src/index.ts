@@ -16,9 +16,7 @@ export type EnvType = {
 
 export default {
 	async fetch(request: Request, env: EnvType) {
-		if (!env.router) {
-			env.router = createRouter(env);
-		}
+		env.router ??= createRouter(env);
 
 		return env.router.handle(request).then(json).catch(error).then(corsify);
 	}
@@ -39,11 +37,7 @@ function createRouter(env: EnvType): RouterType {
 
 	router.post('message', async (req) => {
 		const body = (await req.json()) as any;
-
-		const email = body.email;
-		const name = body.name;
-		const message = body.message;
-		const apiKey = body.apiKey;
+		const { email, name, message, apiKey } = body;
 
 		if (apiKey !== env.apiKey) {
 			return error(404, 'invalid apiKey');
