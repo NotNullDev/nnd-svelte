@@ -14,6 +14,7 @@
 	import SvelteIcon from '$lib/icons/svelte-icon.svg';
 	import Ts from '$lib/icons/typescript-icon.svg';
 
+	import { beforeNavigate } from '$app/navigation';
 	import clsx from 'clsx';
 	import { onDestroy, onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
@@ -81,6 +82,10 @@
 		if (observer) {
 			observer.disconnect();
 		}
+	});
+
+	beforeNavigate(() => {
+		updateHeroCssVariables(0, 1);
 	});
 
 	$: {
@@ -181,11 +186,11 @@
 					<h2 class="text-4xl mt-8">Infrastructure</h2>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">docker</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="docker" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="Docker" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">kubernetes</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="kubernetes" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="Kubernetes" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">cloudflare</div>
@@ -194,12 +199,12 @@
 							fetchpriority="high"
 							class="h-6"
 							src={Cloudflare}
-							alt="cloudflare"
+							alt="Cloudflare"
 						/>
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">google cloud</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="google cloud" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="Google cloud" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">microsoft azure</div>
@@ -208,43 +213,43 @@
 							fetchpriority="high"
 							class="h-12"
 							src={Azure}
-							alt="microsoft azure"
+							alt="Microsoft Azure"
 						/>
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">linux</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="linux" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="Linux" />
 					</div>
 				</section>
 				<section class="flex flex-col gap-6 p-8 text-center">
 					<h2 class="text-4xl mt-8">Languages and frameworks</h2>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">next js</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="next js" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="Next,js" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">go</div>
-						<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="go" />
+						<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="Go" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">java</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="java" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="Java" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">svelte</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="svelte" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="Svelte" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">typescript</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="typescript" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="Typescript" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">spring</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="spring" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Spring} alt="Spring" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">postgres</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="postgres" />
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="Postgres" />
 					</div>
 				</section>
 			</div>

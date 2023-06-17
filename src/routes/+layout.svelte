@@ -22,7 +22,7 @@
 					src={HamburgerMenu}
 					alt="hamburger menu"
 					class="btn btn-sm text-white fill-white stroke-white"
-				/>
+				>
 			</button>
 		</div>
 		<a
