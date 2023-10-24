@@ -29,22 +29,8 @@
 		const rootStyle = document.documentElement.style;
 
 		rootStyle.setProperty('--badgeRotationDeg', badgeRotationDeg);
-		rootStyle.setProperty(
-			'--heroScrollPercentage',
-			heroScrollPercentage.toString()
-		);
+		rootStyle.setProperty('--heroScrollPercentage', heroScrollPercentage.toString());
 	}
-
-	function updateHeaderHeight() {
-               const header = document.querySelector('header');
-                if (!header) return;
-
-                // @todo if works, remove.
-		//const headerHeight = 78;
-                const headerHeight = header.offsetHeight;
-
-                firstSection.style.height = `calc(100vh - ${headerHeight}px)`;
-        }
 
 	let observer: IntersectionObserver;
 	let noneContainer: HTMLElement;
@@ -53,12 +39,12 @@
 
 	function updateCSSVariables() {
 		if (!nElement) return;
-		
-		const { width, height } = nElement.getBoundingClientRect();
-                const rootStyle = document.documentElement.style;
 
-                rootStyle.setProperty('--one-width', `${width}px`);
-                rootStyle.setProperty('--n-height', `${height}px`);
+		const { width, height } = nElement.getBoundingClientRect();
+		const rootStyle = document.documentElement.style;
+
+		rootStyle.setProperty('--one-width', `${width}px`);
+		rootStyle.setProperty('--n-height', `${height}px`);
 	}
 
 	const observerCallback: IntersectionObserverCallback = (entries, observer) => {
@@ -164,7 +150,7 @@
 					in:fade
 					id="hero-image"
 					class="flex-[1] opacity-80"
-				>
+				/>
 			</div>
 		</section>
 
@@ -191,11 +177,11 @@
 					<h2 class="text-4xl mt-8">Infrastructure</h2>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">docker</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="Docker">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Docker} alt="Docker" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">kubernetes</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="Kubernetes">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={K8s} alt="Kubernetes" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">cloudflare</div>
@@ -205,11 +191,11 @@
 							class="h-6"
 							src={Cloudflare}
 							alt="CloudFlare"
-						>
+						/>
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">google cloud</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="Google cloud">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Gcp} alt="Google cloud" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">microsoft azure</div>
@@ -219,34 +205,34 @@
 							class="h-12"
 							src={Azure}
 							alt="Microsoft Azure"
-						>
+						/>
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">linux</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="Linux">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Linux} alt="Linux" />
 					</div>
 				</section>
 				<section class="flex flex-col gap-6 p-8 text-center">
 					<h2 class="text-4xl mt-8">Languages and frameworks</h2>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">next js</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="Next.js">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={NextJs} alt="Next.js" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">go</div>
-						<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="Go">
+						<img loading="lazy" fetchpriority="high" class="h-6" src={Golang} alt="Go" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">java</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="Java">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Java} alt="Java" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">svelte</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="Svelte">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={SvelteIcon} alt="Svelte" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">typescript</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="TypeScript">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Ts} alt="TypeScript" />
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">spring</div>
@@ -254,7 +240,7 @@
 					</div>
 					<div class="flex gap-24 flex-row-reverse items-center justify-between">
 						<div class="capitalize font-bold text-xl">postgres</div>
-						<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="PostgreSQL">
+						<img loading="lazy" fetchpriority="high" class="h-12" src={Postgres} alt="PostgreSQL" />
 					</div>
 				</section>
 			</div>
@@ -279,7 +265,7 @@
 							src="https://cdn.notnulldev.com/daxer.webp"
 							alt="e-commerce application"
 							class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-						>
+						/>
 					</div>
 					<div class="w-full p-6 flex flex-col flex-1">
 						<div class="flex-1">
@@ -310,7 +296,7 @@
 							src="https://cdn.notnulldev.com/e-com.webp"
 							alt="e-commerce application"
 							class="object-cover object-left-top rounded-t-xl min-h-[200px] max-h-[200px]"
-						>
+						/>
 					</div>
 					<div class="w-full p-6 flex flex-col flex-1">
 						<div class="flex-1">

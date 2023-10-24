@@ -92,7 +92,7 @@
 			<label class="label">
 				<span>Email</span>
 				<input
-					class="input"
+					class="input rounded-md"
 					required
 					minlength="1"
 					maxlength="40"
@@ -107,7 +107,7 @@
 					required
 					minlength="1"
 					maxlength="2000"
-					class="input"
+					class="input rounded-md"
 					bind:value={name}
 					type="text"
 					placeholder="John Doe"
@@ -116,7 +116,7 @@
 			<label class="label">
 				<span>Your message</span>
 				<textarea
-					class="textarea"
+					class="textarea rounded-md"
 					required
 					minlength="1"
 					maxlength="2000"
