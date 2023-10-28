@@ -308,7 +308,7 @@
 						</div>
 						<div class="w-full flex justify-end group-hover:animate-pulse">
 							<a
-								href="https://e-com.notnulldev.com"
+								href="https://e-com-nnd.fly.dev"
 								class="btn variant-filled-primary group-hover:animate-bounce">Visit</a
 							>
 						</div>
